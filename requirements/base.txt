@@ -1,0 +1,14 @@
+wheel
+fastapi[all]
+psycopg2-binary
+sqlalchemy
+python-decouple
+python-multipart
+databases[postgresql]
+asyncpg
+async-exit-stack
+async-generator
+passlib[bcrypt]
+python-jose[cryptography]
+python-dotenv
+pyjwt

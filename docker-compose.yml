@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  market:
+    env_file:
+      - .env
+    build: .
+    volumes:
+      - ./:/proj
+    ports:
+      - 8002:8000
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000

@@ -1,0 +1,10 @@
+.env
+__pycache__
+app.egg-info
+.mypy_cache
+.coverage
+htmlcov
+
+# Project exclude paths
+/venv/
+.idea

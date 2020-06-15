@@ -1,8 +1,7 @@
-import datetime
 import enum
 from typing import TYPE_CHECKING
 
-from sqlalchemy import (Boolean, Column, DateTime, Enum, ForeignKey, Integer, String,
+from sqlalchemy import (Boolean, Column, Enum, ForeignKey, Integer, String,
                         Table)
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -46,9 +45,6 @@ class Order(Base):
     is_paid = Column(Boolean, default=False)
     number = Column(String, unique=True)
     total = Column(Integer)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.datetime.utcnow)
-    expires_at = Column(DateTime)
     first_name = Column(String)
     last_name = Column(String)
     phone = Column(String, index=True)

@@ -13,8 +13,8 @@ if TYPE_CHECKING:
 
 class User(Base):
     id = Column(UUID, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True, nullable=False)
-    password = Column(String, nullable=False)
+    email = Column(String, unique=True, index=True)
+    password = Column(String)
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
 
@@ -23,19 +23,19 @@ class User(Base):
 
 class Profile(Base):
     id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    phone = Column(String, nullable=False)
-    city = Column(String, nullable=False)
-    address = Column(String, nullable=False)
+    first_name = Column(String)
+    last_name = Column(String)
+    phone = Column(String)
+    city = Column(String)
+    address = Column(String)
     user_id = Column(UUID, ForeignKey("user.id"))
 
     user = relationship("User", back_populates="profiles", uselist=False)
 
 
 class Employee(Base):
-    user_id = Column(UUID, ForeignKey("user.id"), primary_key=True, nullable=False)
-    shop_id = Column(UUID, ForeignKey("shop.id"), nullable=False)
+    user_id = Column(UUID, ForeignKey("user.id"), primary_key=True)
+    shop_id = Column(UUID, ForeignKey("shop.id"))
     is_manager = Column(Boolean, default=False)
 
     user = relationship("User", back_populates="profiles", uselist=False)

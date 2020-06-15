@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 
 class Shop(Base):
     id = Column(UUID, primary_key=True)
-    name = Column(String, unique=True, nullable=False)
-    slug = Column(String, unique=True, nullable=False)
-    description = Column(Text, nullable=False)
+    name = Column(String, unique=True)
+    slug = Column(String, unique=True)
+    description = Column(Text)
     manager_id = Column(UUID, ForeignKey("user.id"))
 
     manager = relationship("Employee", back_populates="shop", uselist=False)

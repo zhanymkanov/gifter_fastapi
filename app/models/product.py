@@ -16,9 +16,9 @@ if TYPE_CHECKING:
 
 class Category(Base):
     id = Column(UUID, primary_key=True)
-    title = Column(String, index=True, nullable=False)
-    slug = Column(String, unique=True, nullable=False)
-    parent_id = Column(UUID, ForeignKey("category.id"))
+    title = Column(String, index=True)
+    slug = Column(String, unique=True)
+    parent_id = Column(UUID, ForeignKey("category.id"), nullable=True)
 
     parent = relationship("Category", back_populates="children", uselist=False)
     children = relationship("Category", back_populates="parent")
@@ -27,10 +27,10 @@ class Category(Base):
 
 class Product(Base):
     id = Column(UUID, primary_key=True)
-    title = Column(String, index=True, nullable=False)
-    slug = Column(String, unique=True, nullable=False)
-    price = Column(Float, nullable=False)
-    description = Column(Text, nullable=False)
+    title = Column(String, index=True)
+    slug = Column(String, unique=True)
+    price = Column(Float)
+    description = Column(Text)
     specifications = Column(JSONB)
     is_active = Column(Boolean, default=True)
     category_id = Column(UUID, ForeignKey("category.id"))
@@ -46,7 +46,7 @@ class Product(Base):
 
 class Review(Base):
     id = Column(UUID, primary_key=True)
-    rating = Column(SmallInteger, index=True, nullable=False)
+    rating = Column(SmallInteger, index=True)
     plus = Column(String)
     minus = Column(String)
     comment = Column(String)

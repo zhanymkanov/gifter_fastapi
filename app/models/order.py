@@ -50,5 +50,5 @@ class Order(Base):
     expires_at = Column(DateTime, nullable=False)
     profile_id = Column(UUID, ForeignKey("user.id"))
 
-    profile = relationship("Profile", back_populates="orders", uselist=False)
-    products = relationship("Product", back_populates="orders")
+    user = relationship("User", back_populates="orders", uselist=False)
+    products = relationship("Product", back_populates="orders", secondary=OrderStatus)

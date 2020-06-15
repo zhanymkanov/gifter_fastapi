@@ -6,6 +6,7 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
+from app.models.order import OrderProducts
 
 if TYPE_CHECKING:
     from .shop import Shop  # noqa
@@ -39,6 +40,7 @@ class Product(Base):
     category = relationship("Category", back_populates="products", uselist=False)
     images = relationship("Shop", back_populates="product")
     reviews = relationship("Review", back_populates="product")
+    orders = relationship("Order", back_populates="products", secondary=OrderProducts)
 
 
 class Review(Base):

@@ -2,7 +2,7 @@ import datetime
 import enum
 from typing import TYPE_CHECKING
 
-from sqlalchemy import (Column, DateTime, Enum, ForeignKey, Integer, String,
+from sqlalchemy import (Boolean, Column, DateTime, Enum, ForeignKey, Integer, String,
                         Table)
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -41,14 +41,20 @@ class PaymentStatus(enum.Enum):
 
 class Order(Base):
     id = Column(UUID, primary_key=True)
-    status = Column(Enum(OrderStatus, name="order_status"), nullable=False)
-    number = Column(String, unique=True, nullable=False)
-    payment_status = Column(Enum(PaymentStatus, name="payment_status"), nullable=False)
-    subtotal = Column(Integer, nullable=False)
+    user_id = Column(UUID, ForeignKey("user.id"))
+    status = Column(Enum(OrderStatus, name="order_status"))
+    is_paid = Column(Boolean, default=False)
+    number = Column(String, unique=True)
+    total = Column(Integer)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow)
-    expires_at = Column(DateTime, nullable=False)
-    profile_id = Column(UUID, ForeignKey("user.id"))
+    expires_at = Column(DateTime)
+    first_name = Column(String)
+    last_name = Column(String)
+    phone = Column(String, index=True)
+    city = Column(String)
+    address = Column(String)
+    email = Column(String, index=True)
 
     user = relationship("User", back_populates="orders", uselist=False)
     products = relationship("Product", back_populates="orders", secondary=OrderStatus)

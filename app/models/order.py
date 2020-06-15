@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 if TYPE_CHECKING:
-    from .user import Profile  # noqa
+    from .user import User  # noqa
     from .product import Product  # noqa
 
 OrderProducts = Table(

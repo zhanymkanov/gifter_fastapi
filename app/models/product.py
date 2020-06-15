@@ -11,6 +11,7 @@ from app.models.order import OrderProducts
 if TYPE_CHECKING:
     from .shop import Shop  # noqa
     from .user import User  # noqa
+    from .order import Order  # noqa
 
 
 class Category(Base):

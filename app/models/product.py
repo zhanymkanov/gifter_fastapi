@@ -18,7 +18,7 @@ from app.models.order import OrderProducts
 
 if TYPE_CHECKING:
     from .shop import Shop  # noqa
-    from .user import User  # noqa
+    from .users import Users  # noqa
     from .order import Order  # noqa
 
 
@@ -59,10 +59,10 @@ class Review(Base):
     minus = Column(String)
     comment = Column(String)
     product_id = Column(UUID, ForeignKey("product.id"))
-    user_id = Column(UUID, ForeignKey("user.id"))
+    user_id = Column(UUID, ForeignKey("users.id"))
 
     product = relationship("Product", back_populates="reviews", uselist=False)
-    user = relationship("User", back_populates="reviews", uselist=False)
+    user = relationship("Users", back_populates="reviews", uselist=False)
 
 
 class Image(Base):

@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 if TYPE_CHECKING:
-    from .user import User  # noqa
+    from .users import Users  # noqa
     from .product import Product  # noqa
 
 OrderProducts = Table(
@@ -39,7 +39,7 @@ class PaymentStatus(enum.Enum):
 
 class Order(Base):
     id = Column(UUID, primary_key=True)
-    user_id = Column(UUID, ForeignKey("user.id"))
+    user_id = Column(UUID, ForeignKey("users.id"))
     status = Column(Enum(OrderStatus, name="order_status"))
     is_paid = Column(Boolean, default=False)
     number = Column(String, unique=True)
@@ -51,5 +51,5 @@ class Order(Base):
     address = Column(String)
     email = Column(String, index=True)
 
-    user = relationship("User", back_populates="orders", uselist=False)
+    user = relationship("Users", back_populates="orders", uselist=False)
     products = relationship("Product", back_populates="orders", secondary=OrderStatus)

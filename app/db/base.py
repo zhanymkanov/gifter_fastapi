@@ -9,7 +9,7 @@ from app.db.base_class import Base  # noqa
 from app.models.order import Order  # noqa
 from app.models.product import Category, Image, Product, Review  # noqa
 from app.models.shop import Shop  # noqa
-from app.models.user import User  # noqa
+from app.models.users import Users  # noqa
 
 
 @compiles(CreateColumn, "postgresql")

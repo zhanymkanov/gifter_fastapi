@@ -8,9 +8,10 @@ from app.db.base_class import Base
 
 if TYPE_CHECKING:
     from .shop import Shop  # noqa
+    from .order import Order  # noqa
 
 
-class User(Base):
+class Users(Base):
     id = Column(UUID, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     password = Column(String)
@@ -18,6 +19,7 @@ class User(Base):
     is_superuser = Column(Boolean, default=False)
 
     profiles = relationship("Profile", back_populates="user")
+    orders = relationship("Order", back_populates="user")
 
 
 class Profile(Base):
@@ -27,17 +29,17 @@ class Profile(Base):
     phone = Column(String)
     city = Column(String)
     address = Column(String)
-    user_id = Column(UUID, ForeignKey("user.id"))
+    user_id = Column(UUID, ForeignKey("users.id"))
 
-    user = relationship("User", back_populates="profiles", uselist=False)
+    user = relationship("Users", back_populates="profiles", uselist=False)
 
 
 class Employee(Base):
-    user_id = Column(UUID, ForeignKey("user.id"), primary_key=True)
+    user_id = Column(UUID, ForeignKey("users.id"), primary_key=True)
     shop_id = Column(UUID, ForeignKey("shop.id"))
     is_manager = Column(Boolean, default=False)
 
-    user = relationship("User", back_populates="profiles", uselist=False)
+    user = relationship("Users", back_populates="profiles", uselist=False)
     shop = relationship("Shop", back_populates="employees", uselist=False)
     __table_args__ = (
         UniqueConstraint("user_id", "shop_id", name="employee_user_shop_key"),

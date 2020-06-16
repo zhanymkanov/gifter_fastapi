@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 if TYPE_CHECKING:
-    from .user import Employee  # noqa
+    from .users import Employee  # noqa
 
 
 class Shop(Base):
@@ -15,7 +15,7 @@ class Shop(Base):
     name = Column(String, unique=True)
     slug = Column(String, unique=True)
     description = Column(Text)
-    manager_id = Column(UUID, ForeignKey("user.id"))
+    manager_id = Column(UUID, ForeignKey("users.id"))
 
     manager = relationship("Employee", back_populates="shop", uselist=False)
     employees = relationship("Employee", back_populates="shop")

@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     HASH_ALGORITHM: str = config("ALGORITHM")
 
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = config("DATABASE_URL")
+    TEST_DATABASE_URI: Optional[PostgresDsn] = config("TEST_DATABASE_URL")
 
     class Config:
         case_sensitive = True

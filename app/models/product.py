@@ -48,7 +48,7 @@ class Product(Base):
 
     shop = relationship("Shop", back_populates="products", uselist=False)
     category = relationship("Category", back_populates="products", uselist=False)
-    images = relationship("Shop", back_populates="product")
+    images = relationship("Image", back_populates="product")
     reviews = relationship("Review", back_populates="product")
     orders = relationship("Order", back_populates="products", secondary=OrderProducts)
 

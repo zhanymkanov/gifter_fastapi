@@ -22,6 +22,7 @@ class Users(Base):
 
     profiles = relationship("Profile", back_populates="user")
     orders = relationship("Order", back_populates="user")
+    reviews = relationship("Review", back_populates="user")
 
 
 class Profile(Base):
@@ -41,7 +42,7 @@ class Employee(Base):
     shop_id = Column(UUID, ForeignKey("shop.id"))
     is_manager = Column(Boolean, default=False)
 
-    user = relationship("Users", back_populates="profiles", uselist=False)
+    user = relationship("Users", backref="employees", uselist=False)
     shop = relationship("Shop", back_populates="employees", uselist=False)
     __table_args__ = (
         UniqueConstraint("user_id", "shop_id", name="employee_user_shop_key"),

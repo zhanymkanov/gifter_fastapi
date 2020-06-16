@@ -1,3 +1,4 @@
+import uuid
 from typing import TYPE_CHECKING
 
 from sqlalchemy import (
@@ -23,7 +24,7 @@ if TYPE_CHECKING:
 
 
 class Category(Base):
-    id = Column(UUID, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String, index=True)
     slug = Column(String, unique=True)
     parent_id = Column(UUID, ForeignKey("category.id"), nullable=True)
@@ -34,7 +35,7 @@ class Category(Base):
 
 
 class Product(Base):
-    id = Column(UUID, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String, index=True)
     slug = Column(String, unique=True)
     price = Column(Float)
@@ -53,7 +54,7 @@ class Product(Base):
 
 
 class Review(Base):
-    id = Column(UUID, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     rating = Column(SmallInteger, index=True)
     plus = Column(String)
     minus = Column(String)

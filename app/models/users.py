@@ -1,3 +1,4 @@
+import uuid
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
@@ -9,10 +10,11 @@ from app.db.base_class import Base
 if TYPE_CHECKING:
     from .shop import Shop  # noqa
     from .order import Order  # noqa
+    from .product import Review  # noqa
 
 
 class Users(Base):
-    id = Column(UUID, primary_key=True, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, index=True)
     password = Column(String)
     is_active = Column(Boolean, default=True)

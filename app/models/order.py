@@ -1,4 +1,5 @@
 import enum
+import uuid
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, Column, Enum, ForeignKey, Integer, String, Table
@@ -38,7 +39,7 @@ class PaymentStatus(enum.Enum):
 
 
 class Order(Base):
-    id = Column(UUID, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID, ForeignKey("users.id"))
     status = Column(Enum(OrderStatus, name="order_status"))
     is_paid = Column(Boolean, default=False)

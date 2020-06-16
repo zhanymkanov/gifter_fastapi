@@ -1,3 +1,4 @@
+import uuid
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Column, ForeignKey, String, Text
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class Shop(Base):
-    id = Column(UUID, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, unique=True)
     slug = Column(String, unique=True)
     description = Column(Text)

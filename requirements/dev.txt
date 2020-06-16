@@ -7,3 +7,4 @@ flake8
 pytest
 sqlalchemy-stubs
 pytest-cov
+pytest-flake8

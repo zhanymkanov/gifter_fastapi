@@ -1,8 +1,7 @@
 import enum
 from typing import TYPE_CHECKING
 
-from sqlalchemy import (Boolean, Column, Enum, ForeignKey, Integer, String,
-                        Table)
+from sqlalchemy import Boolean, Column, Enum, ForeignKey, Integer, String, Table
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 

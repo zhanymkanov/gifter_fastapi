@@ -1,7 +1,15 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import (Boolean, Column, Float, ForeignKey, Integer,
-                        SmallInteger, String, Text)
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Float,
+    ForeignKey,
+    Integer,
+    SmallInteger,
+    String,
+    Text,
+)
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import relationship
 

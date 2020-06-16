@@ -20,3 +20,4 @@ class Shop(Base):
 
     manager = relationship("Employee", back_populates="shop", uselist=False)
     employees = relationship("Employee", back_populates="shop")
+    products = relationship("Product", back_populates="shop")

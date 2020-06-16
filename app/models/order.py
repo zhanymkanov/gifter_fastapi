@@ -16,8 +16,8 @@ OrderProducts = Table(
     "order_products",
     Base.metadata,
     Column("id", Integer, primary_key=True),
-    Column("order_id", UUID),
-    Column("product_id", UUID),
+    Column("order_id", UUID, ForeignKey("order.id")),
+    Column("product_id", UUID, ForeignKey("product.id")),
 )
 
 
@@ -53,4 +53,4 @@ class Order(Base):
     email = Column(String, index=True)
 
     user = relationship("Users", back_populates="orders", uselist=False)
-    products = relationship("Product", back_populates="orders", secondary=OrderStatus)
+    products = relationship("Product", back_populates="orders", secondary=OrderProducts)

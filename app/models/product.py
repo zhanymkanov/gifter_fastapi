@@ -30,7 +30,7 @@ class Category(Base):
     parent_id = Column(UUID, ForeignKey("category.id"), nullable=True)
 
     parent = relationship("Category", back_populates="children", uselist=False)
-    children = relationship("Category", back_populates="parent")
+    children = relationship("Category", back_populates="parent", remote_side=[id])
     products = relationship("Product", back_populates="category")
 
 

@@ -9,6 +9,7 @@ from app.db.base_class import Base
 
 if TYPE_CHECKING:
     from .users import Employee  # noqa
+    from .product import Product  # noqa
 
 
 class Shop(Base):

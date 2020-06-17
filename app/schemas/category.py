@@ -30,10 +30,10 @@ class CategoryInDBBase(CategoryBase):
 
 
 # Returned to Client
-class Category(CategoryBase):
+class Category(CategoryInDBBase):
     pass
 
 
 # Stored in DB
-class CategoryInDB(CategoryBase):
+class CategoryInDB(CategoryInDBBase):
     pass

@@ -35,15 +35,15 @@ jobs:
 
     - name: Run Autoflake
       run: |
-        - autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place app --exclude=__init__.py
+        autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place app --exclude=__init__.py
 
     - name: Run isort
       run: |
-        - isort --recursive --apply app
+        isort --recursive --apply app
 
     - name: Run Black
       run: |
-        - black app
+        black app
 
     - name: Pytest with flake8
       run: |

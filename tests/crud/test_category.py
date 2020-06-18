@@ -37,10 +37,14 @@ def test_category_update(db: Session) -> None:
     category_updated = CategoryUpdate(title=new_title, slug=new_slug)
 
     category = crud.category.create(db=db, obj_in=category_in)
+    old_updated_at = category.updated_at
+
     crud.category.update(db=db, db_obj=category, obj_in=category_updated)
+    new_updated_at = category.updated_at
 
     assert category.title == new_title
     assert category.slug == new_slug
+    assert new_updated_at > old_updated_at
     crud.category.remove(db=db, id=category.id)
 
 

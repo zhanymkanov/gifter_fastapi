@@ -2,11 +2,20 @@ import enum
 import uuid
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, Column, Enum, ForeignKey, Integer, String, Table
+from sqlalchemy import (
+    Boolean,
+    Column,
+    DateTime,
+    Enum,
+    ForeignKey,
+    Integer,
+    String,
+    Table,
+)
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from app.db.base_class import Base
+from app.db.base_class import Base, TimeStampMixin
 
 if TYPE_CHECKING:
     from .users import Users  # noqa
@@ -38,7 +47,7 @@ class PaymentStatus(enum.Enum):
     PAID = 1
 
 
-class Order(Base):
+class Order(Base, TimeStampMixin):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID, ForeignKey("users.id"))
     status = Column(Enum(OrderStatus, name="order_status"))
@@ -51,6 +60,7 @@ class Order(Base):
     city = Column(String)
     address = Column(String)
     email = Column(String, index=True)
+    expires_at = Column(DateTime)
 
     user = relationship("Users", back_populates="orders", uselist=False)
     products = relationship("Product", back_populates="orders", secondary=OrderProducts)

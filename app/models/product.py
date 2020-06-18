@@ -14,7 +14,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import relationship
 
-from app.db.base_class import Base
+from app.db.base_class import Base, TimeStampMixin
 from app.models.order import OrderProducts
 
 if TYPE_CHECKING:
@@ -23,7 +23,7 @@ if TYPE_CHECKING:
     from .order import Order  # noqa
 
 
-class Category(Base):
+class Category(Base, TimeStampMixin):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String, index=True)
     slug = Column(String, unique=True)
@@ -34,7 +34,7 @@ class Category(Base):
     products = relationship("Product", back_populates="category")
 
 
-class Product(Base):
+class Product(Base, TimeStampMixin):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String, index=True)
     slug = Column(String, unique=True)
@@ -53,7 +53,7 @@ class Product(Base):
     orders = relationship("Order", back_populates="products", secondary=OrderProducts)
 
 
-class Review(Base):
+class Review(Base, TimeStampMixin):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     rating = Column(SmallInteger, index=True)
     plus = Column(String)
@@ -66,7 +66,7 @@ class Review(Base):
     user = relationship("Users", back_populates="reviews", uselist=False)
 
 
-class Image(Base):
+class Image(Base, TimeStampMixin):
     id = Column(Integer, primary_key=True)
     order = Column(SmallInteger)
     product_id = Column(UUID, ForeignKey("product.id"))

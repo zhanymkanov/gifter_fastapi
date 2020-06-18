@@ -5,14 +5,14 @@ from sqlalchemy import Column, ForeignKey, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from app.db.base_class import Base
+from app.db.base_class import Base, TimeStampMixin
 
 if TYPE_CHECKING:
     from .users import Employee  # noqa
     from .product import Product  # noqa
 
 
-class Shop(Base):
+class Shop(Base, TimeStampMixin):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, unique=True)
     slug = Column(String, unique=True)

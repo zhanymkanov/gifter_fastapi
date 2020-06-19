@@ -43,14 +43,9 @@ class OrderStatus(enum.Enum):
     CANCEL_ERROR = "CANCEL_ERROR"
 
 
-class PaymentStatus(enum.Enum):
-    PENDING = 0
-    PAID = 1
-
-
 class Order(Base, TimeStampMixin):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID, ForeignKey("users.id"))
+    user_id = Column(UUID, ForeignKey("users.id"), nullable=True)
     status = Column(Enum(OrderStatus, name="order_status"))
     is_paid = Column(Boolean, default=False)
     number = Column(String, unique=True)

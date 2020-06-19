@@ -14,24 +14,14 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import relationship
 
-from app.db.base_class import Base, TimeStampMixin
-from app.models.order import OrderProducts
+from app.database import Base
+from app.models import TimeStampMixin
+from app.order.models import OrderProducts
 
 if TYPE_CHECKING:
-    from .shop import Shop  # noqa
-    from .users import Users  # noqa
-    from .order import Order  # noqa
-
-
-class Category(Base, TimeStampMixin):
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    title = Column(String, index=True)
-    slug = Column(String, unique=True)
-    parent_id = Column(UUID, ForeignKey("category.id"), nullable=True)
-
-    parent = relationship("Category", back_populates="children", uselist=False)
-    children = relationship("Category", back_populates="parent", remote_side=[id])
-    products = relationship("Product", back_populates="category")
+    from app.auth.models import Users  # noqa
+    from app.order.models import Order  # noqa
+    from app.shop.models import Shop  # noqa
 
 
 class Product(Base, TimeStampMixin):

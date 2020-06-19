@@ -25,7 +25,6 @@ def test_category_get(db: Session) -> None:
 
     assert category.id == category_stored.id
     assert category.slug == category_stored.slug
-    assert category.created_at == category_stored.created_at
     service.remove(db=db, category_id=category.id)
 
 

@@ -2,7 +2,6 @@ wheel
 fastapi[all]
 psycopg2-binary
 sqlalchemy
-python-decouple
 python-multipart
 databases[postgresql]
 asyncpg

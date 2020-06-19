@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 
-from app.db.base import Base
-from app.db.session import engine
+from app.database import Base, engine
 
 Base.metadata.create_all(engine)
 

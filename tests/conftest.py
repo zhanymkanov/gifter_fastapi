@@ -5,14 +5,12 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.config import settings
-from app.db.base import Base
+from app.config import TEST_DATABASE_URI
+from app.database import Base
 from app.main import app
 
-TEST_DATABASE_URL = settings.TEST_DATABASE_URI
-
-engine = create_engine(TEST_DATABASE_URL)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+engine = create_engine(TEST_DATABASE_URI)
+TestingSessionLocal = sessionmaker(bind=engine)
 
 Base.metadata.create_all(bind=engine)
 

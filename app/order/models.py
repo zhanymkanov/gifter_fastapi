@@ -15,11 +15,12 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from app.db.base_class import Base, TimeStampMixin
+from app.database import Base
+from app.models import TimeStampMixin
 
 if TYPE_CHECKING:
-    from .users import Users  # noqa
-    from .product import Product  # noqa
+    from app.auth.models import Users  # noqa
+    from app.product.models import Product  # noqa
 
 OrderProducts = Table(
     "order_products",

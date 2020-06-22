@@ -1,6 +1,7 @@
 import uuid
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Optional
 
+from pydantic import UUID4
 from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -41,7 +42,7 @@ class CategoryUpdate(CategoryBase):
 
 # Base Properties for models stored in DB
 class CategoryInDBBase(CategoryBase):
-    id: Any
+    id: UUID4
     title: str
     slug: str
 

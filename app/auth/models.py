@@ -42,7 +42,7 @@ class UserRegister(UserBase):
 
 class UserLogin(UserBase):
     email: EmailStr
-    password: SecretStr
+    password: str
 
 
 class UserUpdate(UserBase):
@@ -59,7 +59,7 @@ class UserInDBBase(UserBase):
 
 
 # Returned to Client
-class User(UserInDBBase):
+class UserResponse(UserInDBBase):
     pass
 
 

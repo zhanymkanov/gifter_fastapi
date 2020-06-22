@@ -54,9 +54,6 @@ class UserInDBBase(UserBase):
     id: UUID4
     email: EmailStr
 
-    class Config:
-        orm_mode = True
-
 
 # Returned to Client
 class UserResponse(UserInDBBase):

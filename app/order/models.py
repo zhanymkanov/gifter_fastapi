@@ -19,7 +19,7 @@ from app.database import Base
 from app.models import TimeStampMixin
 
 if TYPE_CHECKING:
-    from app.auth.models import Users  # noqa
+    from app.auth.models import User  # noqa
     from app.product.models import Product  # noqa
 
 OrderProducts = Table(
@@ -58,5 +58,5 @@ class Order(Base, TimeStampMixin):
     email = Column(String, index=True)
     expires_at = Column(DateTime)
 
-    user = relationship("Users", back_populates="orders", uselist=False)
+    user = relationship("User", back_populates="orders", uselist=False)
     products = relationship("Product", back_populates="orders", secondary=OrderProducts)

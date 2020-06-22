@@ -16,7 +16,9 @@ if TYPE_CHECKING:
     from app.profile.models import Profile  # noqa
 
 
-class Users(Base, TimeStampMixin):
+class User(Base, TimeStampMixin):
+    __tablename__ = "users"
+
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, index=True)
     password = Column(String)

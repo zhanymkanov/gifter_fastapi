@@ -9,7 +9,7 @@ from app.database import Base
 from app.models import TimeStampMixin
 
 if TYPE_CHECKING:
-    from app.auth.models import Users  # noqa
+    from app.auth.models import User  # noqa
     from app.product.models import Product  # noqa
 
 
@@ -30,7 +30,7 @@ class Employee(Base, TimeStampMixin):
     shop_id = Column(UUID, ForeignKey("shop.id"))
     is_manager = Column(Boolean, default=False)
 
-    user = relationship("Users", backref="employees", uselist=False)
+    user = relationship("User", backref="employees", uselist=False)
     shop = relationship("Shop", back_populates="employees", uselist=False)
     __table_args__ = (
         UniqueConstraint("user_id", "shop_id", name="employee_user_shop_key"),

@@ -34,11 +34,11 @@ def create(*, db: Session, user_in: UserRegister) -> User:
 
 
 def authenticate(*, db: Session, user_in: UserLogin):
-    user_db = get_by_email(db, user_in.email)
+    user_db = users.get_by_email(db, user_in.email)
     if not user_db:
         return False
 
     if not verify_password(user_in.password, user_db.password):
         return False
 
-    return True
+    return user_db

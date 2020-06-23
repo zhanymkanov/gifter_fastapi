@@ -31,3 +31,11 @@ Base = declarative_base(cls=CustomBase)
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 SessionLocal = sessionmaker(bind=engine)
+
+
+def get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()

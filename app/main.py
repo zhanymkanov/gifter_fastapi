@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from app.database import Base, engine
 from app.auth.router import router as auth_router
+from app.database import Base, engine
 
 Base.metadata.create_all(engine)
 

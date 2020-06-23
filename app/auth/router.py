@@ -10,7 +10,7 @@ from app.database import get_db
 
 from . import service, users
 from .constants import ErrorCode
-from .models import User, Token, UserLogin, UserResponse, UserRegister
+from .models import Token, User, UserLogin, UserRegister, UserResponse
 from .security import create_access_token
 
 router = APIRouter()
@@ -36,9 +36,7 @@ async def login_for_access_token(
 
 
 @router.post("/register", response_model=Token)
-async def register(
-    user_in: UserRegister, db: Session = Depends(get_db)
-):
+async def register(user_in: UserRegister, db: Session = Depends(get_db)):
     user = users.create(db=db, user_in=user_in)
     access_token_expires = timedelta(minutes=JWT_EXP)
     access_token = create_access_token(
@@ -48,9 +46,7 @@ async def register(
 
 
 @router.post("/users/me", response_model=UserResponse)
-def read_users_me(
-        current_user: User = Depends(service.get_jwt_user_active)
-) -> Any:
+def read_users_me(current_user: User = Depends(service.get_jwt_user_active)) -> Any:
     """
     Test access token
     """

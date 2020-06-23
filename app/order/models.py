@@ -19,7 +19,7 @@ from app.database import Base
 from app.models import TimeStampMixin
 
 if TYPE_CHECKING:
-    from app.auth.models import Users  # noqa
+    from app.auth.models import User  # noqa
     from app.product.models import Product  # noqa
 
 OrderProducts = Table(
@@ -43,14 +43,9 @@ class OrderStatus(enum.Enum):
     CANCEL_ERROR = "CANCEL_ERROR"
 
 
-class PaymentStatus(enum.Enum):
-    PENDING = 0
-    PAID = 1
-
-
 class Order(Base, TimeStampMixin):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID, ForeignKey("users.id"))
+    user_id = Column(UUID, ForeignKey("users.id"), nullable=True)
     status = Column(Enum(OrderStatus, name="order_status"))
     is_paid = Column(Boolean, default=False)
     number = Column(String, unique=True)
@@ -63,5 +58,5 @@ class Order(Base, TimeStampMixin):
     email = Column(String, index=True)
     expires_at = Column(DateTime)
 
-    user = relationship("Users", back_populates="orders", uselist=False)
+    user = relationship("User", back_populates="orders", uselist=False)
     products = relationship("Product", back_populates="orders", secondary=OrderProducts)

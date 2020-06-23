@@ -19,7 +19,7 @@ from app.models import TimeStampMixin
 from app.order.models import OrderProducts
 
 if TYPE_CHECKING:
-    from app.auth.models import Users  # noqa
+    from app.auth.models import User  # noqa
     from app.order.models import Order  # noqa
     from app.shop.models import Shop  # noqa
 
@@ -53,7 +53,7 @@ class Review(Base, TimeStampMixin):
     user_id = Column(UUID, ForeignKey("users.id"))
 
     product = relationship("Product", back_populates="reviews", uselist=False)
-    user = relationship("Users", back_populates="reviews", uselist=False)
+    user = relationship("User", back_populates="reviews", uselist=False)
 
 
 class Image(Base, TimeStampMixin):

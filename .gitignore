@@ -4,6 +4,7 @@ app.egg-info
 .mypy_cache
 .coverage
 htmlcov
+requests
 
 # Project exclude paths
 /venv/

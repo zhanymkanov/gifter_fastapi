@@ -1,7 +1,7 @@
 import uuid
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Optional
 
-from pydantic import EmailStr, SecretStr
+from pydantic import UUID4, BaseModel, EmailStr, SecretStr
 from sqlalchemy import Boolean, Column, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -16,7 +16,9 @@ if TYPE_CHECKING:
     from app.profile.models import Profile  # noqa
 
 
-class Users(Base, TimeStampMixin):
+class User(Base, TimeStampMixin):
+    __tablename__ = "users"
+
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, index=True)
     password = Column(String)
@@ -40,7 +42,7 @@ class UserRegister(UserBase):
 
 class UserLogin(UserBase):
     email: EmailStr
-    password: SecretStr
+    password: str
 
 
 class UserUpdate(UserBase):
@@ -49,18 +51,24 @@ class UserUpdate(UserBase):
 
 # Base Properties for models stored in DB
 class UserInDBBase(UserBase):
-    id: Any
+    id: UUID4
     email: EmailStr
-
-    class Config:
-        orm_mode = True
 
 
 # Returned to Client
-class User(UserInDBBase):
+class UserResponse(UserInDBBase):
     pass
 
 
 # Stored in DB
 class UserInDB(UserInDBBase):
     password: SecretStr
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    email: EmailStr

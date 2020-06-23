@@ -35,15 +35,15 @@ jobs:
 
     - name: Run Autoflake
       run: |
-        autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place app --exclude=__init__.py
+        autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place app tests --exclude=__init__.py
 
     - name: Run isort
       run: |
-        isort --recursive --apply app
+        isort --recursive --apply app tests
 
     - name: Run Black
       run: |
-        black app
+        black app tests
 
     - name: Pytest with flake8
       run: |
@@ -52,3 +52,4 @@ jobs:
         ALGORITHM: ${{ secrets.ALGORITHM }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         TEST_DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}

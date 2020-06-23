@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.auth import security, users
-from app.auth.models import UserRegister
+from app.auth.models import User, UserRegister
 from tests.utils import random_lower_string
 
 
@@ -16,16 +16,11 @@ def test_user_create(db: Session):
     assert security.verify_password(user_password, user.password)
 
 
-def test_user_get(db: Session):
-    user_email = f"{random_lower_string()}@mail.net"
-    user_password = random_lower_string()
-    user_in = UserRegister(email=user_email, password=user_password)
-    user = users.create(db=db, user_in=user_in)
-
+def test_user_get(db: Session, user: User):
     user_stored = users.get(db=db, user_id=user.id)
+
     assert user_stored.id
-    assert user_stored.email == user_email
-    assert security.verify_password(user_password, user_stored.password)
+    assert user_stored.email == user.email
 
 
 def test_user_get_by_email(db: Session):

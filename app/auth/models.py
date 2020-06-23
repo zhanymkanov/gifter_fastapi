@@ -1,7 +1,7 @@
 import uuid
 from typing import TYPE_CHECKING, Optional
 
-from pydantic import UUID4, EmailStr, SecretStr
+from pydantic import UUID4, BaseModel, EmailStr, SecretStr
 from sqlalchemy import Boolean, Column, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -63,3 +63,12 @@ class UserResponse(UserInDBBase):
 # Stored in DB
 class UserInDB(UserInDBBase):
     password: SecretStr
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    email: EmailStr

@@ -52,3 +52,4 @@ jobs:
         ALGORITHM: ${{ secrets.ALGORITHM }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         TEST_DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}

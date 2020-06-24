@@ -7,7 +7,7 @@ from .models import Category, CategoryCreate, CategoryUpdate
 
 
 def get(db: Session, category_id: Any) -> Optional[Category]:
-    return db.query(Category).filter(Category.id == category_id).first()
+    return db.query(Category).get(category_id)
 
 
 def get_by_slug(db: Session, slug: str) -> Optional[Category]:

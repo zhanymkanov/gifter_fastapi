@@ -7,7 +7,7 @@ from app.database import get_db
 
 from . import service
 from .constants import ErrorCode
-from .models import CategoryCreate, CategoryResponse, CategoryUpdate
+from .models import CategoryCreate, CategoryDeleted, CategoryResponse, CategoryUpdate
 
 router = APIRouter()
 
@@ -47,3 +47,16 @@ async def update(
             detail=ErrorCode.CATEGORY_SLUG_NOT_FOUND,
         )
     return service.update(db, category=category, category_in=category_in)
+
+
+@router.delete(
+    "/{category_slug}", response_model=CategoryDeleted, status_code=status.HTTP_200_OK
+)
+async def delete(category_slug: str, db: Session = Depends(get_db)):
+    category = service.get_by_slug(db, category_slug)
+    if not category:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=ErrorCode.CATEGORY_SLUG_NOT_FOUND,
+        )
+    return service.remove(db, category_slug=category_slug)

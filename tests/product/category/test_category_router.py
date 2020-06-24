@@ -79,3 +79,30 @@ def test_category_route_update_not_exists(client: TestClient) -> None:
 
     assert resp.status_code == 404
     assert resp_json["detail"] == ErrorCode.CATEGORY_SLUG_NOT_FOUND
+
+
+def test_category_route_delete(client: TestClient) -> None:
+    slug, title = random_lower_string(), random_lower_string()
+    data_in = {
+        "title": title,
+        "slug": slug,
+    }
+    client.post("/categories", json=data_in)
+
+    resp = client.delete(f"/categories/{slug}", json=data_in)
+    resp_json = resp.json()
+
+    assert resp.status_code == 200
+    assert resp_json["is_active"] is False
+
+
+def test_category_route_delete_not_exists(client: TestClient) -> None:
+    data_in = {
+        "title": "title",
+        "slug": "slug",
+    }
+    resp = client.delete("/categories/not-exists", json=data_in)
+    resp_json = resp.json()
+
+    assert resp.status_code == 404
+    assert resp_json["detail"] == ErrorCode.CATEGORY_SLUG_NOT_FOUND

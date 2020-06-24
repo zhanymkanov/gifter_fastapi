@@ -50,3 +50,8 @@ class CategoryInDBBase(CategoryBase):
 # Returned to Client
 class CategoryResponse(CategoryInDBBase):
     pass
+
+
+# Returned to Client
+class CategoryDeleted(CategoryInDBBase):
+    is_active: bool

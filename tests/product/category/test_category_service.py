@@ -13,7 +13,7 @@ def test_category_create(db: Session) -> None:
     assert category.id is not None
     assert category.title == title
     assert category.slug == slug
-    service.remove(db=db, category_id=category.id)
+    service.remove(db=db, category_slug=category.slug)
 
 
 def test_category_get(db: Session) -> None:
@@ -25,7 +25,7 @@ def test_category_get(db: Session) -> None:
 
     assert category.id == category_stored.id
     assert category.slug == category_stored.slug
-    service.remove(db=db, category_id=category.id)
+    service.remove(db=db, category_slug=category.slug)
 
 
 def test_category_update(db: Session) -> None:
@@ -44,7 +44,7 @@ def test_category_update(db: Session) -> None:
     assert category.title == new_title
     assert category.slug == new_slug
     assert new_updated_at > old_updated_at
-    service.remove(db=db, category_id=category.id)
+    service.remove(db=db, category_slug=category.slug)
 
 
 def test_category_remove(db: Session) -> None:
@@ -52,7 +52,7 @@ def test_category_remove(db: Session) -> None:
     category_in = CategoryCreate(title=title, slug=slug)
 
     category = service.create(db=db, category_in=category_in)
-    category_removed = service.remove(db=db, category_id=category.id)
+    category_removed = service.remove(db=db, category_slug=category.slug)
 
     assert not category_removed.is_active
     assert category.id == category_removed.id

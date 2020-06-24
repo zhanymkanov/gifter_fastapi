@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.category import service
-from app.category.models import CategoryCreate, CategoryUpdate
+from app.product.category import service
+from app.product.category.models import CategoryCreate, CategoryUpdate
 from tests.utils import random_lower_string
 
 

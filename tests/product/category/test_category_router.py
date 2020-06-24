@@ -44,3 +44,8 @@ def test_category_route_create_slug_exists(client: TestClient) -> None:
 
     assert resp.status_code == 400
     assert resp_json["detail"] == ErrorCode.CATEGORY_SLUG_ALREADY_EXISTS
+
+
+def test_category_route_get_all(client: TestClient) -> None:
+    resp = client.get("/categories")
+    assert resp.status_code == 200

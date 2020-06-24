@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -25,3 +27,8 @@ async def create(category_in: CategoryCreate, db: Session = Depends(get_db)):
         )
 
     return service.create(db, category_in=category_in)
+
+
+@router.get("", response_model=List[CategoryResponse], status_code=status.HTTP_200_OK)
+async def get_all(db: Session = Depends(get_db)):
+    return service.get_all(db)

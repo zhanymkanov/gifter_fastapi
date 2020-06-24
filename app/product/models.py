@@ -1,16 +1,7 @@
 import uuid
 from typing import TYPE_CHECKING
 
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Float,
-    ForeignKey,
-    Integer,
-    SmallInteger,
-    String,
-    Text,
-)
+from sqlalchemy import Boolean, Column, Float, ForeignKey, SmallInteger, String, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import relationship
 
@@ -43,11 +34,3 @@ class Product(Base, TimeStampMixin):
     images = relationship("Image", back_populates="product")
     reviews = relationship("Review", back_populates="product")
     orders = relationship("Order", back_populates="products", secondary=OrderProducts)
-
-
-class Image(Base, TimeStampMixin):
-    id = Column(Integer, primary_key=True)
-    order = Column(SmallInteger)
-    product_id = Column(UUID, ForeignKey("product.id"))
-
-    product = relationship("Product", back_populates="images", uselist=False)

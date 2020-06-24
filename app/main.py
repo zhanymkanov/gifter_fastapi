@@ -8,5 +8,5 @@ Base.metadata.create_all(engine)
 
 app = FastAPI()
 
-app.include_router(auth_router, prefix="/auth")
-app.include_router(category_router, prefix="/categories")
+app.include_router(auth_router, prefix="/auth", tags=["Auth"])
+app.include_router(category_router, prefix="/categories", tags=["Category"])

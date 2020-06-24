@@ -1,20 +1,24 @@
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
-from .models import Category, CategoryCreate, CategoryRead, CategoryUpdate
+from .models import Category, CategoryCreate, CategoryUpdate
 
 
-def get(db: Session, category_id: Any) -> Optional[CategoryRead]:
+def get(db: Session, category_id: Any) -> Optional[Category]:
     return db.query(Category).filter(Category.id == category_id).first()
 
 
-def get_by_slug(db: Session, slug: str) -> Optional[CategoryRead]:
+def get_by_slug(db: Session, slug: str) -> Optional[Category]:
     return db.query(Category).filter(Category.slug == slug).first()
 
 
-def get_all(db: Session) -> Optional[CategoryRead]:
+def get_by_title(db: Session, title: str) -> Optional[Category]:
+    return db.query(Category).filter(Category.title == title).first()
+
+
+def get_all(db: Session) -> Optional[List[Category]]:
     return db.query(Category).filter(Category.is_active).all()
 
 

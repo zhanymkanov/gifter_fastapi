@@ -18,7 +18,7 @@ def get_by_title(db: Session, title: str) -> Optional[Category]:
     return db.query(Category).filter(Category.title == title).first()
 
 
-def get_all(db: Session) -> Optional[List[Category]]:
+def get_all_active(db: Session) -> Optional[List[Category]]:
     return db.query(Category).filter(Category.is_active).all()
 
 

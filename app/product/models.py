@@ -21,6 +21,7 @@ from app.order.models import OrderProducts
 if TYPE_CHECKING:
     from app.auth.models import User  # noqa
     from app.order.models import Order  # noqa
+    from app.product.category.models import Category  # noqa
     from app.shop.models import Shop  # noqa
 
 

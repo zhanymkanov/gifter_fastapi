@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class Category(Base, TimeStampMixin, ActivatedMixin):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    title = Column(String, index=True)
+    title = Column(String, unique=True)
     slug = Column(String, unique=True)
     parent_id = Column(UUID, ForeignKey("category.id"), nullable=True)
 
@@ -48,5 +48,5 @@ class CategoryInDBBase(CategoryBase):
 
 
 # Returned to Client
-class CategoryRead(CategoryInDBBase):
+class CategoryResponse(CategoryInDBBase):
     pass

@@ -69,7 +69,6 @@ def test_read_users_me(client: TestClient):
     }
     resp = client.post("auth/register", json=user_in).json()
     token = resp["access_token"]
-
     headers = {
         "Authorization": f"Bearer {token}",
     }
@@ -82,7 +81,6 @@ def test_read_users_me(client: TestClient):
 
 def test_read_users_me_fail_jwt_decode(client: TestClient):
     token = "INVALID_JWT.TOKEN.OK"
-
     headers = {
         "Authorization": f"Bearer {token}",
     }

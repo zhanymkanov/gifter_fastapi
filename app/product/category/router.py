@@ -17,11 +17,6 @@ async def read_all(db: Session = Depends(get_db)):
     return service.get_all_active(db)
 
 
-@router.post("", response_model=CategoryResponse, status_code=status.HTTP_200_OK)
-async def update(category_in: CategoryUpdate, db: Session = Depends(get_db)):
-    pass
-
-
 @router.post("", response_model=CategoryResponse, status_code=status.HTTP_201_CREATED)
 async def create(category_in: CategoryCreate, db: Session = Depends(get_db)):
     if service.get_by_title(db, title=category_in.title):
@@ -37,3 +32,18 @@ async def create(category_in: CategoryCreate, db: Session = Depends(get_db)):
         )
 
     return service.create(db, category_in=category_in)
+
+
+@router.put(
+    "/{category_slug}", response_model=CategoryResponse, status_code=status.HTTP_200_OK
+)
+async def update(
+    category_slug: str, category_in: CategoryUpdate, db: Session = Depends(get_db)
+):
+    category = service.get_by_slug(db, category_slug)
+    if not category:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=ErrorCode.CATEGORY_SLUG_NOT_FOUND,
+        )
+    return service.update(db, category=category, category_in=category_in)

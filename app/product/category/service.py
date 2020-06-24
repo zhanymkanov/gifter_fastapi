@@ -42,8 +42,8 @@ def update(db: Session, *, category: Category, category_in: CategoryUpdate) -> C
     return category
 
 
-def remove(db: Session, *, category_id: int) -> Category:
-    category: Category = db.query(Category).get(category_id)
+def remove(db: Session, *, category_slug: str) -> Category:
+    category: Category = get_by_slug(db, category_slug)
     category.is_active = False
 
     db.add(category)

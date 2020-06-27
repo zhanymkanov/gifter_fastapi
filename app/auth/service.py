@@ -50,9 +50,9 @@ async def get_jwt_user_active(current_user: User = Depends(get_jwt_user)):
 def authenticate(*, db: Session, user_in: UserLogin):
     user_db = users.get_by_email(db, user_in.email)
     if not user_db:
-        return False
+        return
 
     if not verify_password(user_in.password, user_db.password):
-        return False
+        return
 
     return user_db

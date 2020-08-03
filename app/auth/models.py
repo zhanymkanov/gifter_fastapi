@@ -10,10 +10,10 @@ from app.database import Base
 from app.models import OrmBaseModel, TimeStampMixin
 
 if TYPE_CHECKING:
-    from app.shop.models import Shop  # noqa
     from app.order.models import Order  # noqa
     from app.product.models import Review  # noqa
     from app.profile.models import Profile  # noqa
+    from app.shop.models import Shop  # noqa
 
 
 class User(Base, TimeStampMixin):

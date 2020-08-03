@@ -9,9 +9,9 @@ from app.models import TimeStampMixin
 
 if TYPE_CHECKING:
     from app.auth.models import User  # noqa
-    from app.shop.models import Shop  # noqa
     from app.order.models import Order  # noqa
     from app.product.models import Review  # noqa
+    from app.shop.models import Shop  # noqa
 
 
 class Profile(Base, TimeStampMixin):

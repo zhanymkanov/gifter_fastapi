@@ -1,6 +1,9 @@
 FROM python:3.8-slim
 
-RUN apt-get update && apt install -y build-essential locales libstdc++6 wget git swig3.0 libssl-dev
+RUN apt-get update && \
+    apt-get install -y gcc git libpq-dev libmagic1 && \
+    apt clean && \
+    rm -rf /var/cache/apt/*
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

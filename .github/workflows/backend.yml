@@ -33,17 +33,9 @@ jobs:
         python -m pip install -U pip
         pip install -r requirements/dev.txt
 
-    - name: Run Autoflake
-      run: |
-        autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place app tests --exclude=__init__.py
-
-    - name: Run isort
-      run: |
-        isort --recursive --apply app tests
-
     - name: Run Black
       run: |
-        black app tests
+        black --check app tests
 
     - name: Pytest with flake8
       run: |

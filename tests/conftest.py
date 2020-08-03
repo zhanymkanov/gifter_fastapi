@@ -7,12 +7,12 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.auth import users
 from app.auth.models import User, UserRegister
-from app.config import TEST_DATABASE_URI
+from app.config import SQLALCHEMY_DATABASE_URI
 from app.database import Base
 from app.main import app
 from tests.utils import random_lower_string
 
-engine = create_engine(TEST_DATABASE_URI)
+engine = create_engine(SQLALCHEMY_DATABASE_URI)
 TestingSessionLocal = sessionmaker(bind=engine)
 
 Base.metadata.create_all(bind=engine)
